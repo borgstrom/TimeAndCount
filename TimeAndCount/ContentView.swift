@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftUI
+import AudioToolbox
 
 struct ContentView: View {
     @AppStorage("hours") var hours: Int = 0
@@ -100,6 +101,11 @@ struct ContentView: View {
                 elapsed = .seconds(t.timeIntervalSince(startTime))
                 if elapsed >= duration {
                     cancellable?.cancel()
+
+                    // TODO: make this better
+                    // We should not hard code an ID here and ideally the
+                    // user should be able to select the sound they want
+                    AudioServicesPlayAlertSound(1013)
                 }
             }
     }
